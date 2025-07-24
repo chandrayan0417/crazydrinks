@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@reference "../../index.css";
+.button {
+	@apply select-none w-15 md:w-20 h-15 md:h-20 rounded-full flex justify-center items-center cursor-pointer z-100 bg-mid-green;
+}
+
+.burger {
+	@apply w-full;
+	&::after,
+	&::before {
+		@apply content-[""] block h-0.5 w-[40%] m-auto bg-white relative transition-transform duration-300;
+	}
+
+	&::after {
+		top: -5px;
+	}
+
+	&::before {
+		top: 5px;
+	}
+}
+
+.burgerActive {
+	&::after {
+		transform: rotate(45deg);
+		top: -1px;
+	}
+
+	&::before {
+		transform: rotate(-45deg);
+		top: 0px;
+	}
+}

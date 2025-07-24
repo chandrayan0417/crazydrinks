@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@reference "../../index.css";
+
+.menu {
+	@apply h-screen fixed right-0 top-0 text-white bg-[hsla(137,97%,15%,0.5)];
+
+	.body {
+		@apply box-border h-full p-25 flex flex-col justify-between;
+
+		.nav {
+			@apply flex flex-col text-7xl gap-15 mt-20;
+
+			a {
+				@apply text-white font-light;
+			}
+		}
+	}
+	.footer {
+		@apply flex w-full justify-between text-xl gap-7;
+	}
+}
+
+.flinks {
+	@apply hover:underline duration-200 ease-in-out;
+}

@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap");
+@import "remixicon/fonts/remixicon.css";
+@import "tailwindcss";
+
+@theme {
+	--color-darkest: hsla(240, 4%, 9.8%, 1); /* deep background, richer blacks */
+	--color-black: hsla(270, 2.86%, 13.73%, 1); /* main UI background */
+	--color-white: hsla(240, 12.5%, 96.86%, 1); /* softer white, less glaring */
+	--color-light-gray: hsla(240, 2.78%, 28.24%, 1); /* borders, subtle surfaces */
+	--color-yellow: hsla(48, 97%, 48%, 1); /* warmer, slightly orange */
+	--color-light-yellow: hsla(54, 95%, 72%, 1); /* pastel accent */
+	--color-mid-green: hsla(71.84, 100%, 43.73%, 1); /* for buttons, links */
+	--color-light-green: hsla(97, 88%, 48%, 1); /* brighter, natural accent */
+	--color-dark-green: #54c392; /* deeper green, less black */
+	--color-mint: #baffb4;
+	--font-sans: "Antonio", sans-serif;
+	--font-paragraph: "Poppins", sans-serif;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: var(--color-mint);
+	color: hsla(137, 97%, 15%, 1);
+	font-family: var(--font-sans);
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
+}
+
+body::-webkit-scrollbar {
+	display: none; /* Chrome, Safari */
+}
+
+@layer utilities {
+	.flex-center {
+		@apply flex justify-center items-center;
+	}
+	.col-center {
+		@apply flex flex-col justify-center items-center;
+	}
+	.abs-center {
+		@apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+	}
+	.general-title {
+		@apply 2xl:text-[8.5rem] md:text-8xl text-5xl font-bold uppercase leading-[9vw] tracking-[-.35vw];
+	}
+}
+
+@layer components {
+	.paragraph-line {
+		@apply text-nowrap overflow-hidden;
+	}
+
+	.hero-container {
+		@apply relative bg-[#0d4a1e] w-screen h-dvh overflow-hidden;
+
+		.hero-content {
+			@apply relative z-10 w-full h-full flex flex-col 2xl:justify-center items-center translate-y-10 2xl:pt-0 md:pt-32 pt-24;
+
+			.hero-title {
+				@apply text-mid-green 2xl:text-[8.5rem] md:text-[6.5rem] text-[3rem] font-bold uppercase leading-[9vw] tracking-[-.35vw] 2xl:mb-0 mb-5;
+			}
+
+			.hero-text-scroll {
+				@apply rotate-[-3deg] mb-20;
+
+				.hero-subtitle {
+					@apply bg-dark-green;
+				}
+
+				h1 {
+					@apply uppercase 2xl:text-[8.5rem] md:text-[6.5rem] text-[2rem] font-bold text-neutral-200 leading-[9vw] tracking-[-.35vw] 2xl:px-[1.2vw] px-3 2xl:pb-[1vw] pb-5 2xl:py-0 py-3;
+				}
+			}
+
+			h2 {
+				@apply font-paragraph text-light-yellow text-center md:max-w-lg max-w-sm px-5 md:text-lg leading-[115%] mt-3;
+			}
+
+			.hero-button {
+				@apply md:mt-16 mt-10 bg-light-yellow hover:bg-yellow  uppercase font-bold text-lg rounded-full md:p-5 p-3 md:px-10 px-7 hover:cursor-pointer;
+			}
+		}
+	}
+}
+
+.message-content {
+	@apply bg-[#35A29F] text-white min-h-dvh overflow-hidden flex justify-center items-center relative z-20;
+
+	.msg-wrapper {
+		@apply 2xl:text-[8.5rem] md:text-8xl text-5xl font-bold uppercase leading-[9vw] tracking-[-.35vw] flex flex-col justify-center items-center md:gap-24 gap-14;
+
+		h1:first-of-type {
+			@apply 2xl:max-w-4xl md:max-w-2xl max-w-xs text-center  text-[#faeade10];
+		}
+
+		h1:last-of-type {
+			@apply 2xl:max-w-7xl md:max-w-4xl max-w-xs text-center  text-[#faeade10];
+		}
+	}
+
+	p {
+		@apply text-center font-paragraph;
+	}
+
+	h1,
+	h2 {
+		@apply leading-none;
+	}
+
+	.msg-text-scroll {
+		@apply rotate-[3deg] 2xl:translate-y-5 -translate-y-5 absolute z-10;
+	}
+}
