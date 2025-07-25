@@ -1,6 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import { gsap, SplitText } from 'gsap/all';
 import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router';
 import useGsapHoverEffect from '../components/useGsapHoverEffect';
 
 const HeroSection = () => {
@@ -61,7 +62,7 @@ const HeroSection = () => {
 			<div className="hero-container">
 				{isMobile ? (
 					<video
-						src="/videos/hero-md.mp4"
+						src="/crazydrinks/videos/hero-md.mp4"
 						autoPlay
 						loop
 						muted
@@ -70,7 +71,7 @@ const HeroSection = () => {
 					/>
 				) : (
 					<video
-						src="/videos/hero-lg.mp4"
+						src="/crazydrinks/videos/hero-lg.mp4"
 						autoPlay
 						loop
 						muted
@@ -98,7 +99,7 @@ const HeroSection = () => {
 						can and let the madness begin!
 					</h2>
 					<div className="hero-button" ref={buttonRef}>
-						<p>Join the Madness</p>
+						<Link to="/shop">Join the Madness</Link>
 					</div>
 				</div>
 			</div>

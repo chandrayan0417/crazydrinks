@@ -72,7 +72,7 @@ const MessageSection = () => {
 	});
 
 	return (
-		<section className="message-content">
+		<section className="message-content relative">
 			<div className="container mx-auto flex-center py-28 relative">
 				<div className="w-full h-full">
 					<div className="msg-wrapper">
@@ -88,7 +88,9 @@ const MessageSection = () => {
 								ref={useGsapHoverEffect()}
 								className="bg-mid-green md:pb-5 pb-3 px-5"
 							>
-								<h2>Power <span className='text-[#FF204E]'>Up</span></h2>
+								<h2>
+									Power <span className="text-[#FF204E]">Up</span>
+								</h2>
 							</div>
 						</div>
 

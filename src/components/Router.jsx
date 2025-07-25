@@ -4,6 +4,7 @@ import Cart from '../routes/Cart';
 import Home from '../routes/Home';
 import PageNotFound from '../routes/PageNotFound';
 import Shop from '../routes/Shop';
+import Checkout from './Checkout';
 
 const Router = () => {
 	return (
@@ -12,6 +13,7 @@ const Router = () => {
 			<Route path="/shop" element={<Shop />} />
 			<Route path="/about" element={<About />} />
 			<Route path="/cart" element={<Cart />} />
+			<Route path="/checkout" element={<Checkout />} />
 			<Route path="*" element={<PageNotFound />} />
 		</Routes>
 	);
