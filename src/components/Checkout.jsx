@@ -2,18 +2,26 @@ import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cartContext } from '../components/Context';
 
+const DELIVERY_FEES = 42;
+
 const Checkout = () => {
 	const [cart, setCart] = useContext(cartContext);
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	// Get total from router state (fallback: calculate from cart)
+	const checkoutCart =
+		location.state?.cart && Array.isArray(location.state.cart)
+			? location.state.cart
+			: cart;
+
+	const deliveryFee = location.state?.deliveryFee ?? DELIVERY_FEES;
+
 	const total =
-		location.state?.total ||
-		cart.reduce(
+		location.state?.total ??
+		checkoutCart.reduce(
 			(sum, item) => sum + (item.price || 0) * (item.quantity || 1),
 			0,
-		);
+		) + deliveryFee;
 
 	const [address, setAddress] = useState({
 		name: '',
@@ -44,7 +52,7 @@ const Checkout = () => {
 		setCart([]);
 		localStorage.setItem('cart', '[]');
 		alert('Payment Successful! 🎉 Your order has been placed.');
-		navigate('/'); // Home ya Thank You page pe redirect kar sakte ho
+		navigate('/'); // Thank You ya Home page redirect
 	};
 
 	return (
@@ -53,31 +61,36 @@ const Checkout = () => {
 				Checkout
 			</h1>
 
-			<div className="bg-black/5 rounded-xl p-5 md:p-8 w-full max-w-xl  mb-8 flex flex-col items-center">
+			<div className="bg-black/5 rounded-xl p-5 md:p-8 w-full max-w-xl mb-8 flex flex-col items-center">
 				<h2 className="text-2xl md:text-3xl font-bold mb-6 text-black">
 					Order Summary
 				</h2>
 				<ul className="w-full mb-4">
-					{cart.map((item) => (
+					{checkoutCart.map((item) => (
 						<li
 							key={item.id}
 							className="flex justify-between py-2 border-b border-zinc-200 text-black"
 						>
 							<span>
 								{item.name}
-								<span className="">× {item.quantity || 1}</span>
+								<span className="ml-2 text-gray-500 text-sm">
+									× {item.quantity || 1}
+								</span>
 							</span>
 							<span>₹ {(item.price || 0) * (item.quantity || 1)}</span>
 						</li>
 					))}
 				</ul>
-				<div className="w-full flex justify-between items-center mb-6 text-xl font-bold text-black">
+				<div className="w-full flex justify-between items-center text-base text-black mb-1">
+					<span>Delivery & Handling Fee</span>
+					<span>₹ {deliveryFee}</span>
+				</div>
+				<div className="w-full flex justify-between items-center mb-6 text-xl font-bold text-black border-t border-zinc-200 pt-2">
 					<span>Total</span>
 					<span>₹ {total}</span>
 				</div>
 			</div>
 
-			{/* Address & Pay */}
 			<form
 				onSubmit={handlePay}
 				className="flex flex-col gap-4 bg-black/5 rounded-xl p-5 md:p-8 w-full max-w-xl"
@@ -131,19 +144,20 @@ const Checkout = () => {
 					maxLength={6}
 				/>
 				{error && (
-					<div className="text-red-600 font-bold text-center">{error}</div>
+					<div className="text-red-400 text-sm text-center">{error}</div>
 				)}
 				<div className="flex w-full justify-between gap-1">
 					<button
 						onClick={() => navigate(-1)}
-						className=" mt-4 bg-black text-white md:text-xl font-bold py-3 rounded-lg hover:cursor-pointer hover:bg-gray-900 transition w-2/5"
+						type="button"
+						className="mt-4 bg-black text-white md:text-xl font-bold py-3 rounded-lg hover:cursor-pointer hover:bg-gray-900 transition w-2/5"
 					>
 						Go Back
 					</button>
 					<button
 						type="submit"
 						className="mt-4 bg-black text-white md:text-xl font-bold py-3 rounded-lg hover:cursor-pointer hover:bg-gray-900 transition w-3/5 md:w-2/5"
-						disabled={cart.length === 0}
+						disabled={checkoutCart.length === 0}
 					>
 						Pay & Place Order
 					</button>
@@ -154,4 +168,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
 import gpay from '../assets/google-pay-svgrepo-com.svg';
 import paypal from '../assets/paypal-logo-svgrepo-com.svg';
@@ -8,6 +9,9 @@ import { cartContext } from '../components/Context';
 const Cart = () => {
 	const [cart, setCart] = useContext(cartContext);
 	const navigate = useNavigate();
+	const isMobile = useMediaQuery({
+		query: '(max-width: 600px)',
+	});
 
 	useEffect(() => {
 		const parseCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -69,7 +73,7 @@ const Cart = () => {
 	}
 
 	return (
-		<section className="h-dvh w-dvw pt-20 md:pt-40 bg-white text-black lg:flex px-3 pb-3 md:px-15 lg:text-xl font-paragraph font-light">
+		<section className="min-h-dvh w-dvw pt-20 md:pt-40 bg-white text-black lg:flex px-3 pb-3 md:px-15 lg:text-xl font-paragraph font-light">
 			<div className="lg:w-2/3 mb-5">
 				<div className="lg:flex w-full mb-5 sticky top-16 z-50 hidden">
 					<div className="flex w-3/5 justify-between px-5">
@@ -100,9 +104,11 @@ const Cart = () => {
 									/>
 									<div className="flex flex-col gap-2 ">
 										<h1 className="font-bold">{item.name}</h1>
-										<p className="text-xs text-gray-500">
-											{item.shortDescription}
-										</p>
+										{!isMobile && (
+											<p className="text-xs text-gray-500">
+												{item.shortDescription}
+											</p>
+										)}
 									</div>
 								</div>
 								{/* Quantity controls */}
@@ -115,7 +121,7 @@ const Cart = () => {
 									>
 										<i className="ri-subtract-line" />
 									</button>
-									<div className="w-10 h-10 border-2 rounded-xs border-zinc-200 flex justify-center items-center">
+									<div className="w-8 md:w-10 h-8 md:h-10 border-2 rounded-xs border-zinc-200 flex justify-center items-center">
 										<span>{String(item.quantity || 1).padStart(2, '0')}</span>
 									</div>
 									<button
@@ -132,7 +138,7 @@ const Cart = () => {
 							<div className="md:w-2/5 flex justify-between items-center pr-3 gap-4 lg:p-0">
 								<div className="flex justify-around w-4/5 lg:pr-3">
 									<div className="hidden md:flex">₹ {item.price || 120}</div>
-									<div>₹ {(item.price || 120) * (item.quantity || 1)}</div>
+									<div>{(item.price || 120) * (item.quantity || 1)}</div>
 								</div>
 								<button
 									type="button"

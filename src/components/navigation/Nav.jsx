@@ -34,7 +34,10 @@ function NavLink({ data, isActive, setSelectedIndicator, closeNav }) {
 				to={href}
 				className={isActive ? 'active' : ''}
 				style={{ textDecoration: 'none', color: 'inherit' }}
-				onClick={closeNav}
+				onClick={() => {
+					closeNav();
+					window.scrollTo(0, 0);
+				}}
 			>
 				{title}
 			</RouterLink>

@@ -84,7 +84,7 @@ const About = () => {
 					</p>
 					<p
 						ref={paraRefs[2]}
-						className="text-xl md:text-2xl font-semibold tracking-wide"
+						className="text-xl font-paragraph md:text-2xl font-semibold tracking-wide"
 						style={{ color: '#111' }}
 					>
 						Every sip is a punchline. Har flavor mein swag aur masti. Late night
